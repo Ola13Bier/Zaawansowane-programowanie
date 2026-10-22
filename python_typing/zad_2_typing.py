@@ -1,63 +1,66 @@
 '''
 Stworzyć funkcję, która przyjmie
-2 argumenty typu int, a następnie 
+2 argumenty typu int, a następnie
 zwróci wynik mnożenia obu liczb.
 '''
 
-#mnozenie liczb
+
+# mnozenie liczb
 def Multiplication(x: int, y: int):
     return (x * y)
 
+
 x = 0
 
-#pętla nieskończona
-while(True):
-    #wybór użytkownika czy chce uruchomić funkcję
+# pętla nieskończona
+while True:
+    # wybór użytkownika czy chce uruchomić funkcję
     choice = input("Czy chcesz uruchomić funkcję?: 1:Tak 0:Nie, wyłącz program ")
-    #instrukcja switch 
+    # instrukcja switch
     match choice:
-        #uruchom funkcję
+        # uruchom funkcję
         case "1":
-            #pętla nieskończona
-            while(True):
-                #pobierz liczbę
-                number_1=input("Podaj liczbę: ")
-                #spróbuj
+            # pętla nieskończona
+            while True:
+                # pobierz liczbę
+                number_1 = input("Podaj liczbę: ")
+                # spróbuj
                 try:
-                    #czy to jest liczba
+                    # czy to jest liczba
                     number_1 = int(number_1)
-                    #przerwanie liczb
+                    # przerwanie liczb
                     break
-                #wyjatek
-                except:
-                    #komunikat
+                # wyjatek
+                except ValueError:
+                    # komunikat
                     print("Niepoprawna watrość!!!")
 
-            #petla nieskonczona
-            while(True):
-                #pobierz liczbę
-                number_2=input("Podaj liczbę: ")
-                #sprobuj
+            # petla nieskonczona
+            while True:
+                # pobierz liczbę
+                number_2 = input("Podaj liczbę: ")
+                # sprobuj
                 try:
-                    #czy to liczba
+                    # czy to liczba
                     number_2 = int(number_2)
-                    #przewij
+                    # przewij
                     break
-                #wyjatek
-                except:
-                    #komunikat
+                # wyjatek
+                except ValueError:
+                    # komunikat
                     print("Niepoprawna watrość!!!")
-            #oblicz wynik mnożenia    
-            mnoz = Multiplication(number_1,number_2)
-            #wyświetl odpowiedź
+            # oblicz wynik mnożenia
+            mnoz = Multiplication(number_1, number_2)
+            # wyświetl odpowiedź
             print(f"Mnozenie: {mnoz}")
-        #nie uruhcamiaj
+        # nie uruhcamiaj
         case "0":
-            #przerwij wykonywanie funckji
+            # przerwij wykonywanie funckji
             x = 1
-        #inna wartość komunikat
+        # inna wartość komunikat
         case default:
-            #wyswietl teskt
+            # wyswietl teskt
             print("Niepoprawna wartość")
+
     if x != 0:
         break

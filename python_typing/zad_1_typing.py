@@ -1,42 +1,44 @@
 '''
-Stworzyć funkcję, która przyjmuje 2 argumenty 
-(typu string) name i surname, a następnie zwróci 
-stringa zgodnie ze wzorem Cześć {name} {surname}! 
+Stworzyć funkcję, która przyjmuje 2 argumenty
+(typu string) name i surname, a następnie zwróci
+stringa zgodnie ze wzorem Cześć {name} {surname}!
 Należy uruchomić funkcję, wynik wykonania funkcji
  zapisać do zmiennej, a następnie go wyświetlić (print)
 '''
 
-#funkcja wyświetla tekst
+
+# funkcja wyświetla tekst
 def Hello(name: str, surname: str):
-    #przypisanie zmiennej name do x_name
+    # przypisanie zmiennej name do x_name
     x_name = name
-    #przypisanie zmiennej surname do y_name
+    # przypisanie zmiennej surname do y_name
     y_surname = surname
-    #wyswietlenie napisu
+    # wyswietlenie napisu
     print(f"Cześć {x_name} {y_surname}!")
 
+
 x = 0
-#pętla nieskończona
-while(True):
-    #wybór użytkownika czy chce uruchomić funkcję
+# pętla nieskończona
+while True:
+    # wybór użytkownika czy chce uruchomić funkcję
     choice = input("Czy chcesz uruchomić funkcję?: 1:Tak 0:Nie, wyłącz program ")
-    #instrukcja switch 
+    # instrukcja switch
     match choice:
-        #uruchom funkcję
+        # uruchom funkcję
         case "1":
-            #pobierz od użytkokwnika imię
+            # pobierz od użytkokwnika imię
             name = input("Podaj imię: ")
-            #pobierz od użytkownika nazwisko
+            # pobierz od użytkownika nazwisko
             surname = input("Podaj nazwisko: ")
-            #wykonaj funkcję
+            # wykonaj funkcję
             Hello(name, surname)
-        #nie uruhcamiaj
+        # nie uruhcamiaj
         case "0":
-            #przerwij wykonywanie funckji
+            # przerwij wykonywanie funckji
             x = 1
-        #inna wartość komunikat
+        # inna wartość komunikat
         case default:
-            #wyswietl teskt
+            # w yswietl teskt
             print("Niepoprawna wartość")
     if x != 0:
         break
