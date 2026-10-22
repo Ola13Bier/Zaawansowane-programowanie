@@ -7,107 +7,112 @@ Założenie:
 - lista deklarowana przez uzytkownika
 - losowo wybrane wartości z zakresu wybranego przez uzytkownika
 '''
-#biblioteka random
+# biblioteka random
 import random
 
-#lista globalna
+
+# lista globalna
 numbers = []
 
-#dodanie 10 elemtów do listy
+
+# dodanie 10 elemtów do listy
 def AddNumbersToList():
     numbers.clear()
-    #petla od 0 do 9
+    # petla od 0 do 9
     for i in range(10):
-        #petla nieskonczona
+        # petla nieskonczona
         while (True):
-            #pobranie wartosci
+            # pobranie wartosci
             x = input("Podaj wartosc: ")
-            #sprobuj wykonać
+            # sprobuj wykonać
             try:
-                #skonwertuj na float
+                # skonwertuj na float
                 x = float(x)
-                #dodaj do listy
+                # dodaj do listy
                 numbers.append(x)
-                #przerwij petle
+                # przerwij petle
                 break
-            #wyjatek
-            except:
-                #komunikat
+            # wyjatek
+            except ValueError:
+                # komunikat
                 print("Niepoprawna wartosc")
-    #lista jest pelna
+    # lista jest pelna
     print("Lista pelna")
 
+
 def AddRandomNumbersToList(x, y):
-    #sprobuj wykonać
+    # sprobuj wykonać
     try:
-        #czy zmienna x jest typu int
+        # czy zmienna x jest typu int
         x = int(x)
-        #czy zmienna y jest typu int
+        # czy zmienna y jest typu int
         y = int(y)
-        #wyczysc liste
+        # wyczysc liste
         numbers.clear()
-        #petla od 0 do 9
+        # petla od 0 do 9
         for i in range(10):
-            #losowanie liczby z zakresu
+            # losowanie liczby z zakresu
             a = random.randint(x, y)
-            #dodanie wartości
+            # dodanie wartości
             numbers.append(a)
-    #wyjatek
-    except:
-        #komunikat
+    # wyjatek
+    except ValueError:
+        # komunikat
         print("Parametr nie jest liczba")
     print("Lista: ", numbers)
 
-#Wyswietlanie co drugiego elementu
+
+# Wyswietlanie co drugiego elementu
 def ShowOnlyTwoNumber():
-    #lista zawierająca co drugi element 
+    # lista zawierająca co drugi element
     twoNumber = []
-    #petla od 1 i inkrementajcą co 2
-    for i in range(1 , len(numbers), 2):
-        #dodanie elementu do listy twoNumber
+    # petla od 1 i inkrementajcą co 2
+    for i in range(1, len(numbers), 2):
+        # dodanie elementu do listy twoNumber
         twoNumber.append(numbers[i])
-    #Wyswietlenie listy
+    # Wyswietlenie listy
     print("Liczba parzysta: ", twoNumber)
 
-#Wyboru dla użytkownika
-print("1 - Dodaj elementy do listy  \n2 - Dodaj losowe liczby do listy \n3 - Wyswietl co drugi element")
-#pętla nieskończona
-while (True):
-    #pobrana wartość od użytkownika
+
+# Wyboru dla użytkownika
+print("1 - Dodaj elementy do listy \n2 - Dodaj losowe liczby do listy \n3 - Wyswietl co drugi element")
+# pętla nieskończona
+while True:
+    # pobrana wartość od użytkownika
     choice = input("Wybor:")
-    #switch
+    # switch
     match choice:
         case "1":
-            #Dodaj do listy
+            # Dodaj do listy
             AddNumbersToList()
-            #wyswietlenie listy
+            # wyswietlenie listy
             print(numbers)
         case "2":
-            #dodaj losowe liczby
-            #poczatek
+            # dodaj losowe liczby
+            # poczatek
             x = input("Zakres poczatkowy:")
-            #koniec
+            # koniec
             y = input("Zakres koncowy:")
-            #sprobuj wykonać
+            # sprobuj wykonać
             try:
-                #konwert x na int
+                # konwert x na int
                 x = int(x)
-                #konwert y na int
+                # konwert y na int
                 y = int(y)
-                #zalozenie ze x jest mniejsze niz y
+                # zalozenie ze x jest mniejsze niz y
                 if (x < y):
-                    #funkcja gdy x < y
-                    AddRandomNumbersToList(x,y)
+                    # funkcja gdy x < y
+                    AddRandomNumbersToList(x, y)
                 else:
-                    #funkcja gdy y < x
-                    AddRandomNumbersToList(y,x)
-            #wyjatek
-            except:
-                #komunikat
+                    # funkcja gdy y < x
+                    AddRandomNumbersToList(y, x)
+            # wyjatek
+            except ValueError:
+                # komunikat
                 print("Niepoprawne parametry")
         case "3":
-            #Pokaz liczby parzyste
+            # Pokaz liczby parzyste
             ShowOnlyTwoNumber()
         case _:
-            #Scenariusz alternatywny
+            # Scenariusz alternatywny
             print("Niepoprawna wartość")

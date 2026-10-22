@@ -1,5 +1,5 @@
 '''
-Utwórz funkcję, która otrzyma w parametrze listę 
+Utwórz funkcję, która otrzyma w parametrze listę
 10 liczb (rekomendowane wykorzystanie funkcji range),
 a następnie wyświetli jedynie parzyste elementy.
 
@@ -9,21 +9,24 @@ Założenie:
 '''
 import random
 
-#lista globalna
+
+# lista globalna
 numbers = []
 
-#dodanie 10 elemtów do listy
+
+# dodanie 10 elemtów do listy
 def AddNumbersToList():
     for i in range(10):
-        while (True):
+        while True:
             x = input("Podaj wartosc: ")
             try:
                 x = float(x)
                 numbers.append(x)
                 break
-            except:
+            except ValueError:
                 print("Niepoprawna wartosc")
     print("Lista pelna")
+
 
 def AddRandomNumbersToList(x, y):
     try:
@@ -34,46 +37,48 @@ def AddRandomNumbersToList(x, y):
         for i in range(10):
             a = random.randint(x, y)
             numbers.append(a)
-    except:
+    except ValueError:
         print("Parametr nie jest liczba")
+
 
 def ShowOnlyEvenNumber():
     evenNumber = []
     for i in numbers:
-        if i % 2 == 0 :
+        if i % 2 == 0:
             evenNumber.append(i)
     evenNumber.sort()
     print("Liczba parzysta: ", evenNumber)
 
-#Wyboru dla użytkownika
+
+# Wyboru dla użytkownika
 print("1 - Dodaj elementy do listy  \n2 - Dodaj losowe liczby do listy \n3 - Pokaz liczby parzyste")
-#pętla nieskończona
+# pętla nieskończona
 while (True):
-    #pobrana wartość od użytkownika
+    # pobrana wartość od użytkownika
     choice = input("Wybor:")
-    #switch
+    # switch
     match choice:
         case "1":
-            #Dodaj do listy
+            # Dodaj do listy
             AddNumbersToList()
             print(numbers)
         case "2":
-            #dodaj losowe liczby
+            # dodaj losowe liczby
             x = input("Zakres poczatkowy:")
             y = input("Zakres koncowy:")
             try:
                 x = int(x)
                 y = int(y)
                 if (x < y):
-                    AddRandomNumbersToList(x,y)
+                    AddRandomNumbersToList(x, y)
                 else:
-                    AddRandomNumbersToList(y,x)
-            except:
+                    AddRandomNumbersToList(y, x)
+            except ValueError:
                 print("Niepoprawne parametry")
             print(numbers)
         case "3":
-            #Pokaz liczby parzyste
+            # Pokaz liczby parzyste
             ShowOnlyEvenNumber()
         case _:
-            #Scenariusz alternatywny
+            # sScenariusz alternatywny
             print("Niepoprawna wartość")
