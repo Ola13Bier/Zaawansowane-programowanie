@@ -1,21 +1,23 @@
 '''
 Rozszerzyć skrypt z punktu 7 o przyjmowanie parametru city
-, który może być przekazywany w wierszu poleceń podczas 
-wykonywania (np. python main.py --city=Berlin ). Należy 
-wykorzystać moduł argparse do wczytywania przekazywanych 
-parametrów, a w razie przekazania wartości ograniczyć 
+, który może być przekazywany w wierszu poleceń podczas
+wykonywania (np. python main.py --city=Berlin ). Należy
+wykorzystać moduł argparse do wczytywania przekazywanych
+parametrów, a w razie przekazania wartości ograniczyć
 pobierane browary do miasta, które zostało wskazane.
 '''
-#Optional może ale nie musi być
+# Optional może ale nie musi być
+
 
 from dataclasses import dataclass
 from typing import Optional
 import argparse
 import requests
 
+
 @dataclass
 class Brewery:
-    #deklaracja zmiennych z bazy
+    # deklaracja zmiennych z bazy
     id: str
     name: str
     brewery_type: str
@@ -50,34 +52,35 @@ class Brewery:
             f"Website URL: {self.website_url}\n"
             f"State: {self.state}\n"
             f"Streer: {self.street}\n"
-            #linia **********************
+            # linia **********************
             f"{'*' * 20}"
         )
+
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--city", 
-        type=str, 
+        "--city",
+        type=str,
         help="Miasto, z którego pobrać browary")
     args = parser.parse_args()
 
-    #adres strony
+    # adres strony
     url = "https://api.openbrewerydb.org/v1/breweries"
 
-    params = {"per_page": 20, "page":1}
-    
+    params = {"per_page": 20, "page": 1}
+
     if args.city:
         params["by_city"] = args.city
-    #laczenie z API
+    # laczenie z API
     response = requests.get(
         url,
-        params= params,
+        params=params,
         timeout=10
     )
 
     response.raise_for_status()
-    #lista słownikowa
+    # lista słownikowa
     data = response.json()
 
     lista_browarow = [
@@ -88,9 +91,7 @@ def main():
     for browar in lista_browarow:
         print(browar)
 
+
+# wyświetlanie python zad_8_typing.py --city=Berlin
 if __name__ == "__main__":
     main()
-
-#wyświetlanie python zad_8_typing.py --city=Berlin
-
-
