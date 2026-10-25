@@ -1,0 +1,2 @@
+# lista globalna
+numbers = []
