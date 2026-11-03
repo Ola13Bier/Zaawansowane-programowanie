@@ -7,112 +7,89 @@ Przykład:
     python consumer.py
 """
 
-import csv
-import os
-import socket
-import tempfile
+from database import get_connection, initialize_database
 import time
-from pathlib import Path
+import os
 
-from filelock import FileLock
-
-QUEUE_FILE = Path(__file__).with_name("queue.csv")
-LOCK_FILE = Path(str(QUEUE_FILE) + ".lock")
-
-POLL_INTERVAL_SECONDS = 5
-JOB_DURATION_SECONDS = 30
-FIELDS = ["id", "created_at", "status", "description"]
+POLL_INTERVAL = 5
+JOB_DURATION = 30
 
 
-def read_jobs():
-    if not QUEUE_FILE.exists():
-        return []
-    with QUEUE_FILE.open("r", newline="", encoding="utf-8") as f:
-        return list(csv.DictReader(f))
+def get_job():
 
+    conn = get_connection()
 
-def write_jobs_atomically(jobs):
-    """Zapis do pliku tymczasowego i podmiana CSV, aby nie zostawić częściowego pliku."""
-    fd, temp_name = tempfile.mkstemp(
-        prefix="queue_", suffix=".csv", dir=QUEUE_FILE.parent
-    )
     try:
-        with os.fdopen(fd, "w", newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(f, fieldnames=FIELDS)
-            writer.writeheader()
-            writer.writerows(jobs)
-            f.flush()
-            os.fsync(f.fileno())
-        os.replace(temp_name, QUEUE_FILE)
+        conn.execute("BEGIN IMMEDIATE")
+
+        job = conn.execute("""
+            SELECT id, description
+            FROM jobs
+            WHERE status = 'pending'
+            ORDER BY id
+            LIMIT 1
+        """).fetchone()
+
+        if job is None:
+            conn.commit()
+            return None
+
+        conn.execute("""
+            UPDATE jobs
+            SET status = 'in_progress'
+            WHERE id = ?
+        """, (job[0],))
+
+        conn.commit()
+
+        return job
+
+    except Exception:
+        conn.rollback()
+        raise
+
     finally:
-        if os.path.exists(temp_name):
-            os.unlink(temp_name)
+        conn.close()
 
 
-def claim_one_job():
-    """
-    Atomowo wybiera i oznacza jedno zadanie jako in_progress.
-    Blokada sprawia, że inni consumerzy nie pobiorą tego samego zadania.
-    """
-    with FileLock(LOCK_FILE):
-        jobs = read_jobs()
+def finish_job(job_id):
 
-        for job in jobs:
-            if job["status"] == "pending":
-                job["status"] = "in_progress"
-                write_jobs_atomically(jobs)
-                return job
-
-    return None
-
-
-def mark_job_done(job_id):
-    with FileLock(LOCK_FILE):
-        jobs = read_jobs()
-        for job in jobs:
-            if job["id"] == job_id:
-                job["status"] = "done"
-                write_jobs_atomically(jobs)
-                return True
-    return False
+    with get_connection() as conn:
+        conn.execute("""
+            UPDATE jobs
+            SET status = 'done'
+            WHERE id = ?
+        """, (job_id,))
 
 
 def process_job(job):
-    print(
-        f"[{socket.gethostname()}:{os.getpid()}] "
-        f"Rozpoczynam zadanie {job['id']}: {job['description']}",
-        flush=True,
-    )
 
-    time.sleep(JOB_DURATION_SECONDS)
+    job_id, description = job
 
-    if mark_job_done(job["id"]):
-        print(
-            f"[{socket.gethostname()}:{os.getpid()}] "
-            f"Zakończono zadanie {job['id']}",
-            flush=True,
-        )
+    print(f"Consumer {os.getpid()} wykonuje: {description}")
+
+    time.sleep(JOB_DURATION)
+
+    finish_job(job_id)
+
+    print(f"Consumer {os.getpid()} zakończył: {description}")
 
 
 def main():
-    worker = f"{socket.gethostname()}:{os.getpid()}"
-    print(f"Consumer {worker} uruchomiony. Oczekuję na zadania...", flush=True)
+
+    initialize_database()
+
+    print("Consumer uruchomiony...")
 
     while True:
-        try:
-            job = claim_one_job()
 
-            if job is not None:
-                process_job(job)
-            else:
-                time.sleep(POLL_INTERVAL_SECONDS)
+        job = get_job()
 
-        except KeyboardInterrupt:
-            print("\nConsumer zatrzymany.", flush=True)
-            break
-        except Exception as exc:
-            print(f"Wystąpił błąd: {exc}", flush=True)
-            time.sleep(POLL_INTERVAL_SECONDS)
+        if job:
+            process_job(job)
+
+        else:
+            time.sleep(POLL_INTERVAL)
 
 
 if __name__ == "__main__":
