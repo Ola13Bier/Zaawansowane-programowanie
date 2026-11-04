@@ -1,0 +1,16 @@
+1. niektóre teksty ze zdjęć nie zostały przeczytane prawidłowo
+2. zdjęcie image\test5.png został prawie poprawnie odczytany. 
+   program nie rozpoznał znaku e w wyrazie evolution
+3. zdjęcie 5bac0872c2e9f49075dfa0e360e6b929 rozpoznał poprawnie 3 słowa
+4. zdjęcie chgfh.PNG rozpoznał poprawnie 3 słowa
+   Błędy mogą wynikać z użytego pisma odręcznego
+5. na zdjęciu images\cygfvhj.PNG  poprawnie zostały rozpoznane słowa Jest to.
+   nie rozpoznał większości tekstu
+6. images\il_570xN.6712886613_5xai.jpg rozpoznał poprawnie 42 słowa
+7. zdjęcie image1.jpg poprawnie rozpoznał tekst, błędy wynikają z ucięcia tekstu na zdjęciu
+    W tekście brak nagłówka
+8. w 80% tekst rozpoznany na zdjęciu invoice.jpg. brakuje znaków $ i #
+9. na zdjęciu jbjb.png nie został poprawnie wykryty tekst. 
+10. pismo na zdjęciach test1 do test4 nie zostało rozpoznane. Pismo jest rozmyte
+11. jest problem z rozpoznawaniemm przechylonych zdjęć
+12. images\xcgvhbjn.PNG znalazł tekst, lecz źle są zinterpretowane
