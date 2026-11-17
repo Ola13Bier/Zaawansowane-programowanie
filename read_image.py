@@ -4,8 +4,9 @@ import cv2
 import numpy as np
 import list_images as li
 
+path = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 # ścieżka do tesseract
-pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = path
 
 
 # odczytywanie tekstu ze zdjęć
