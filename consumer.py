@@ -32,7 +32,9 @@ def read_jobs():
 
 
 def write_jobs_atomically(jobs):
-    """Zapis do pliku tymczasowego i podmiana CSV, aby nie zostawić częściowego pliku."""
+    """Zapis do pliku tymczasowego
+    i podmiana CSV, aby nie zostawić
+    częściowego pliku."""
     fd, temp_name = tempfile.mkstemp(
         prefix="queue_", suffix=".csv", dir=QUEUE_FILE.parent
     )
