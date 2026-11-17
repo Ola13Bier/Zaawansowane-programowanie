@@ -1,4 +1,6 @@
-# funckja sprawdzajaca czy slowo przeczytane od tylu jest takie same (palindrom)
+# funckja sprawdzajaca
+# czy slowo przeczytane
+# od tylu jest takie same (palindrom)
 def Is_palidrome(text):
     # zdanie bez spacji, zamiana spacji na znak pusty
     text = text.replace(" ", "").lower()
