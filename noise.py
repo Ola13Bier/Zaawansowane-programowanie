@@ -1,5 +1,4 @@
 import os
-import cv2
 import list_images as li
 import noise_median_blur
 import noise_threshold_1
@@ -16,13 +15,15 @@ def Read_list_images():
     os.makedirs(output_folder, exist_ok=True)
     # pętla for po elementach zdjęcia
     for image in enumerate(lista):
-        # odszummianie median blur
+        # odszummianie
         noise_median_blur.Median_blur(image, output_folder)
         noise_threshold_1.Thershold_1(image, output_folder)
         noise_threshold_1.Thershold_2(image, output_folder)
         noise_threshold_1.Thershold_3(image, output_folder)
-        noise_adaptive.Adaptive_thershold_1(image,output_folder)
-        noise_adaptive.Adaptive_thershold_2(image,output_folder)
-        noise_adaptive.Adaptive_thershold_3(image,output_folder)
+        noise_adaptive.Adaptive_thershold_1(image, output_folder)
+        noise_adaptive.Adaptive_thershold_2(image, output_folder)
+        noise_adaptive.Adaptive_thershold_3(image, output_folder)
 
+
+# wywołanie funkcji odszumianie zdjęć zawartych w folderze
 Read_list_images()
