@@ -12,7 +12,13 @@ def Adaptive_thershold_1(image, output_folder):
     # konwersja zdjęcia w odcieniach szarości
     gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # odszumianie zdjęć metoda 1
-    converted_img = cv2.adaptiveThreshold(cv2.GaussianBlur(gray_img, (5, 5), 0), 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 31, 2)
+    converted_img = cv2.adaptiveThreshold(
+        cv2.GaussianBlur(gray_img, (5, 5), 0),
+        255,
+        cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY,
+        31,
+        2
+    )
     # ścieżka do zapisu
     output_path = os.path.join(
         output_folder,
@@ -34,7 +40,14 @@ def Adaptive_thershold_2(image, output_folder):
     # konwersja zdjęcia w odcieniach szarości
     gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # odszumianie zdjęć metoda 1
-    converted_img = cv2.adaptiveThreshold(cv2.bilateralFilter(gray_img, 9, 75, 75), 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 31, 2)
+    converted_img = cv2.adaptiveThreshold(
+        cv2.bilateralFilter(gray_img, 9, 75, 75),
+        255,
+        cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+        cv2.THRESH_BINARY,
+        31,
+        2
+    )
     # ścieżka do zapisu
     output_path = os.path.join(
         output_folder,
@@ -56,7 +69,14 @@ def Adaptive_thershold_3(image, output_folder):
     # konwersja zdjęcia w odcieniach szarości
     gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # odszumianie zdjęć metoda 1
-    converted_img = cv2.adaptiveThreshold(cv2.medianBlur(gray_img, 3), 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 31, 2)
+    converted_img = cv2.adaptiveThreshold(
+        cv2.medianBlur(gray_img, 3),
+        255,
+        cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+        cv2.THRESH_BINARY,
+        31,
+        2
+    )
     # ścieżka do zapisu
     output_path = os.path.join(
         # nazwa folderu
