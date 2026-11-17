@@ -10,6 +10,7 @@ Przykłady:
 from database import get_connection, initialize_database
 import argparse
 
+
 def add_job(description):
     with get_connection() as conn:
         conn.execute(
