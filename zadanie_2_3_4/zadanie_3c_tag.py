@@ -8,5 +8,5 @@ class Tag():
         self.movieId = movieId
         # tagi opisujące film
         self.tag = tag
-        #kiedy został obejrzany
+        # kiedy został obejrzany
         self.timestamp = timestamp

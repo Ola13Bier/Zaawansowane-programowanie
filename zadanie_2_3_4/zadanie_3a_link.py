@@ -7,4 +7,4 @@ class Link():
         # identyfikator obcy z bazy danych imdb
         self.imdbId = imdbId
         # identyfikator obcy z bazy danych tmdb
-        self.tmdbId = tmdbId       
+        self.tmdbId = tmdbId

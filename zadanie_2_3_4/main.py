@@ -105,7 +105,7 @@ def Links():
 # strona wyświetlająca oceny filmów
 @app.get("/ratings")
 # funkcja wyświetlająca oceny filmów
-def Links():
+def Ratings():
     # deklaracja listy ocen
     listLinks = []
 
